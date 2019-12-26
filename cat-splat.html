@@ -1,0 +1,91 @@
+<html>
+  <head>
+    <script>
+      //global variables to set up
+      var score = 0;
+      var gameOver = false;
+      var timerId = new Array();
+      var speed = 50;
+
+      function createTitle() {
+        var title = document.createElement("h1");
+        var titleText = document.createTextNode("Cat Splat | 2019-2020");
+        title.appendChild(titleText);
+        title.id = "title";
+        title.style.color = "black";
+        title.style.textAlign = "center";
+        title.style.fontFamily = "verdana";
+        document.body.appendChild(title);
+      }
+      //create gameboard
+      function createGameboard() {
+        var gameboard = document.createElement("div");
+        gameboard.id = "gameboard";
+        gameboard.style.height = "500px";
+        gameboard.style.width = "500px";
+        gameboard.style.border = "2px solid black";
+        gameboard.style.backgroundColor = "aqua";
+        gameboard.style.position = "relative";
+        gameboard.style.overflow = "hidden"; //hidden prevents cat from showing when outside of gameboard limits or walls
+        gameboard.style.margin = "0 auto"; //center gameboard on page
+        document.body.appendChild(gameboard);
+      }
+
+      //create a falling cat image
+      function createCat() {
+        if (gameOver) {
+          return;
+        }
+        var cat = document.createElement("img");
+        cat.src = "./cats/cat_1.png";
+        cat.id = "cat";
+        cat.style.width = "200px";
+        cat.style.height = "200px";
+        cat.style.position = "absolute"; //absolute to gameboard bc appending cat to gameboard
+        cat.style.top = 50 - parseInt(cat.style.height); //this is so at the beginning of the game, the cat is offscreen (top of image at zero minus its height and moves down from there, I'm just leaving a bit, so we can see the cat is still there)
+        cat.style.left = 0;
+        document.getElementById("gameboard").appendChild(cat);
+        //move cat down page
+        timerId.push(
+          setInterval(function() {
+            cat.style.top = parseInt(cat.style.top) + 1 + "px";
+            if (parseInt(cat.style.top) == 500 - parseInt(cat.style.height)) {
+              cat.remove();
+            }
+          }, speed)
+        );
+
+        //after x seconds, 2x speed
+      }
+      //I need to get a global speed for the cat
+      // clear the interval and reassign with faster timer
+      //every 30 seconds
+      // catSpeed() {
+      //     cat.style.top = parseInt(cat.style.top) + 1 + "px";
+      //     if (parseInt(cat.style.top) == 500 - parseInt(cat.style.height)) {
+      //       cat.remove();
+      //     }
+      //   }
+      //move the cat down the page
+
+      //   function increaseLevel() {
+      //     speed /= 2;
+      //   }
+
+      //do stuff on load
+      onload = function() {
+        createTitle();
+        createGameboard();
+        createCat();
+        setTimeout(function() {
+          gameOver = true;
+          for (let i = 0; i < timerId.length; i++) {
+            clearInterval(timerId[i]);
+          }
+          alert("game over!");
+        }, 30000);
+      };
+    </script>
+  </head>
+  <body></body>
+</html>
