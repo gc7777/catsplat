@@ -17,6 +17,7 @@
         title.style.fontFamily = "verdana";
         document.body.appendChild(title);
       }
+
       //create gameboard
       function createGameboard() {
         var gameboard = document.createElement("div");
@@ -44,6 +45,7 @@
         cat.style.position = "absolute"; //absolute to gameboard bc appending cat to gameboard
         cat.style.top = 50 - parseInt(cat.style.height); //this is so at the beginning of the game, the cat is offscreen (top of image at zero minus its height and moves down from there, I'm just leaving a bit, so we can see the cat is still there)
         cat.style.left = 0;
+        cat.onclick = onClickCat;
         document.getElementById("gameboard").appendChild(cat);
         //move cat down page
         timerId.push(
@@ -56,6 +58,11 @@
         );
 
         //after x seconds, 2x speed
+      }
+
+      function onClickCat() {
+        this.remove();
+        createCat();
       }
       //I need to get a global speed for the cat
       // clear the interval and reassign with faster timer
@@ -77,6 +84,7 @@
         createTitle();
         createGameboard();
         createCat();
+        onClickCat();
         setTimeout(function() {
           gameOver = true;
           for (let i = 0; i < timerId.length; i++) {
