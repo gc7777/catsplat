@@ -49,11 +49,12 @@
         var cat = document.createElement("img");
         cat.src = "./cats/cat_1.png";
         cat.id = "cat";
-        cat.style.width = "200px";
-        cat.style.height = "200px";
+        cat.style.width = "100px";
+        cat.style.height = "150px";
         cat.style.position = "absolute"; //absolute to gameboard bc appending cat to gameboard
         cat.style.top = 50 - parseInt(cat.style.height); //this is so at the beginning of the game, the cat is offscreen (top of image at zero minus its height and moves down from there, I'm just leaving a bit, so we can see the cat is still there)
         cat.style.left = 0;
+        //if cat is clicked, run the onClickCat function (event)
         cat.onclick = onClickCat;
         document.getElementById("gameboard").appendChild(cat);
         //move cat down page
@@ -72,6 +73,8 @@
       function onClickCat() {
         this.remove();
         createCat();
+        score += 100;
+        document.getElementById("score").innerHTML = score; //after choosing which score, get the score and replace old score with new score
       }
       //I need to get a global speed for the cat
       // clear the interval and reassign with faster timer
