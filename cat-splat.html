@@ -41,6 +41,35 @@
         document.body.appendChild(gameboard);
       }
 
+      function createButton() {
+        var button = document.createElement("button");
+        button.id = "button";
+        button.style.position = "absolute";
+        button.style.top = "30%";
+        button.style.left = "25%";
+        button.style.width = "50%";
+        button.style.height = "25%";
+        button.style.borderradius = "5px";
+        button.style.backgroundColor = "#00cc00";
+        gameboard.appendChild(button);
+        button.onclick = startGame;
+      }
+
+      function startGame() {
+        createCat();
+        createCat();
+        createCat();
+        onClickCat();
+        setTimeout(function() {
+          gameOver = true;
+          for (let i = 0; i < timerId.length; i++) {
+            clearInterval(timerId[i]);
+          }
+          alert("game over!");
+          score = 0;
+        }, 30000);
+      }
+
       //create a falling cat image
       function createCat() {
         if (gameOver) {
@@ -71,9 +100,7 @@
 
       function onClickCat() {
         this.src = "./splat/splat_1.png";
-        // this.remove();
-        // this.src = "./splat/splat_1.png";
-        // createCat();
+        createCat();
         score += 100;
         document.getElementById("scoreboard").innerHTML = "Score: " + score; //after choosing which score, get the score and replace old score with new score
       }
@@ -97,16 +124,7 @@
         createTitle();
         createScoreboard();
         createGameboard();
-        createCat();
-        onClickCat();
-        setTimeout(function() {
-          gameOver = true;
-          for (let i = 0; i < timerId.length; i++) {
-            clearInterval(timerId[i]);
-          }
-          alert("game over!");
-          score = 0;
-        }, 30000);
+        createButton();
       };
     </script>
   </head>
