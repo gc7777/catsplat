@@ -17,7 +17,16 @@
         title.style.fontFamily = "verdana";
         document.body.appendChild(title);
       }
-
+      function createScoreboard() {
+        var scoreboard = document.createElement("h3");
+        var scoreboardContent = document.createTextNode("Score: " + score);
+        scoreboard.appendChild(scoreboardContent);
+        scoreboard.id = "scoreboard";
+        scoreboard.style.color = "black";
+        scoreboard.style.textAlign = "center";
+        scoreboard.style.fontFamily = "verdana";
+        document.body.appendChild(scoreboard);
+      }
       //create gameboard
       function createGameboard() {
         var gameboard = document.createElement("div");
@@ -82,6 +91,7 @@
       //do stuff on load
       onload = function() {
         createTitle();
+        createScoreboard();
         createGameboard();
         createCat();
         onClickCat();
